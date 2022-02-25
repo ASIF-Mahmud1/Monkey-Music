@@ -19,21 +19,14 @@ export default function Home() {
          <Text style={[styles.btnText]} >   Continue </Text>  
       </TouchableOpacity>     
       <View style={{alignItems:'center'}}>
-      <Text  style={styles.input} > or sigin with</Text>
+
+           <Text  style={styles.input} > or sigin with</Text>
            <View style={{flexDirection:'row'}}> 
-           <FontAwesome name="google" size={24} color="black" />
-           <Entypo name="facebook-with-circle" size={24} color="black" />
-           <FontAwesome.Button name="facebook" backgroundColor="#3b5998" onPress={loginWithFacebook}>
-                  Login with Facebook
-           </FontAwesome.Button>
+              <FontAwesome name="google" size={25} color="white"  style={[styles.socialGoogle]}/>
+              <Entypo name="facebook-with-circle" size={40} color="#3b5998" style={[styles.socialFB]} />
            </View>
                
       </View> 
-   
-
-      <TouchableOpacity  >
-               
-      </TouchableOpacity>
 
     </View>
   );
@@ -43,7 +36,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection:'column',
-  //  backgroundColor: 'black',
+   backgroundColor: 'black',
     paddingHorizontal:40,
     paddingTop:20
   },
@@ -82,7 +75,18 @@ const styles = StyleSheet.create({
     fontSize:15
   }
   ,
-  social:{
-    
+  socialGoogle:{
+    backgroundColor:'red',
+    borderRadius:1000,
+    marginVertical:1,
+    marginBottom:10,
+    paddingHorizontal:10,
+    paddingVertical:6,
+    marginRight:30
   },
+  socialFB:{
+    backgroundColor:'white',
+    borderRadius:1000,
+    marginBottom:12,
+  }
 });
