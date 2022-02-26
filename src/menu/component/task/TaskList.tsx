@@ -1,9 +1,14 @@
 import React from 'react';
 import { Button, StyleSheet, Text, View, ScrollView } from 'react-native';
+import SingleTask from './SingleTask';
 
+type Task = {
+    title: string
+    status: string
+  }
 export type Props = {
 
-    taskList?: [string];
+    taskList?: [Task];
 };
 
 const TaskList: React.FC<Props> = ({
@@ -15,7 +20,7 @@ const TaskList: React.FC<Props> = ({
         <ScrollView>
             {
                 taskList.map((item) => {
-                    return <Text key={item}>{item}</Text>
+                    return<SingleTask title={item.title} status={ item.status}/>
                 })
             }
         </ScrollView>

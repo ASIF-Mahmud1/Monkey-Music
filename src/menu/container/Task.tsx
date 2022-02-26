@@ -3,36 +3,42 @@ import { StyleSheet, Text, View ,TextInput,NativeSyntheticEvent, TextInputChange
 import { FontAwesome ,Entypo } from '@expo/vector-icons';
 import TaskList from '../component/task/TaskList';
 
-
+type Task = {
+  title: string
+  status: string
+}
 const Tasks: React.FC = () => {
  
-  const [taskList, setTasks]= useState <string[]>([])
-  const [newTask, addNewTask]= useState('')
+  const [taskList, setTasks]= useState <Task[]>([])
+  const [newTask, addNewTask]= useState<Task>({title:'',status:''})
 
   const onChange = (e: NativeSyntheticEvent<TextInputChangeEventData>): (void) => {
     const value = e.nativeEvent.text;
-    addNewTask(value);
+    let singleTask: Task={title:value,status:"Open"}
+    addNewTask(singleTask);
   }
 
   const handleAddTask = () =>{
-    let allTasks : string[] = [];
+    let allTasks : Task[] = [];
      allTasks= [...taskList]
+     let addTask : Task
+     addTask=newTask
      allTasks.unshift(newTask)
      setTasks(allTasks)
-     addNewTask('')
+     addNewTask({title:'',status:''})
 
   }
  
   return (
     <View style={styles.container}>
         <View style={{flexDirection:'row'}}>  
-            <TextInput placeholder='Add New Task' value={newTask}  onChange={onChange} style={[styles.input]} />
+            <TextInput placeholder='Add New Task' value={newTask.title}  onChange={onChange} style={[styles.input]} />
             <TouchableOpacity onPress={handleAddTask} >
                 <FontAwesome name="plus-circle" size={30} color="black"  />
             </TouchableOpacity>
       </View>
   
-        <TaskList taskList={taskList as [string]} /> 
+        <TaskList taskList={taskList as [Task]} /> 
     </View>
   );
 };
