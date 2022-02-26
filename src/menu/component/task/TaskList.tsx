@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{Fragment} from 'react';
 import { Button, StyleSheet, Text, View, ScrollView } from 'react-native';
 import SingleTask from './SingleTask';
 
@@ -17,20 +17,25 @@ const TaskList: React.FC<Props> = ({
 }) => {
 
     return (
-        <ScrollView>
-            {
-                taskList.map((item) => {
-                    return<SingleTask title={item.title} status={ item.status}/>
-                })
-            }
-        </ScrollView>
+        <Fragment>
+            <Text style={styles.title}>My Tasks</Text>
+            <ScrollView style={{ marginVertical:20 }}>
+                {
+                    taskList.map((item) => {
+                        return <SingleTask title={item.title} status={item.status} />
+                    })
+                }
+            </ScrollView>
+   
+        </Fragment>
 
     );
 };
 
 const styles = StyleSheet.create({
-    container: {
-
+    title: {
+      marginTop:30,
+      fontSize:20
     },
 
 });

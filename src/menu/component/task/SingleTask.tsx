@@ -1,5 +1,6 @@
 import React,{Fragment} from 'react';
 import { Button, StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
+import { FontAwesome ,Entypo } from '@expo/vector-icons';
 
 export type Props = {
 
@@ -14,11 +15,15 @@ const SingleTask: React.FC<Props> = ({
 
     return (
       <Fragment>
-          <View style={{display:'flex', flexDirection:'row'}}>
-          <Text>{title} {status} </Text>
-          <TouchableOpacity>
-              <Text>Update Status</Text>
-          </TouchableOpacity>
+          <View style={styles.container}>
+            <View style={{borderColor:'grey',borderWidth:1, borderRadius:10}}>
+                <Text style={[styles.text]}>{title}  </Text>
+                <Text style={[styles.status]}>{status}  </Text>
+            </View>    
+            <TouchableOpacity style={styles.edit}>
+                <Entypo style={{ marginLeft: 10 }} name="sound-mix" size={24} color="black" />
+                <Text style={{ marginLeft: 10,color:'grey' }}>{'Edit'}</Text>
+            </TouchableOpacity>
           </View>
         
       </Fragment>
@@ -28,8 +33,28 @@ const SingleTask: React.FC<Props> = ({
 
 const styles = StyleSheet.create({
     container: {
-
+        display:'flex', 
+        flexDirection:'row',
+        marginTop:20
     },
+    text:{
+        borderRadius:20,
+        paddingHorizontal:15,
+        fontSize:20,
+        marginRight:10,
+        width:250
+      },
+      status:{
+        paddingHorizontal:15,
+        color:'grey',  
+        fontSize:15,
+        marginRight:10,
+        width:250
+      },
+      edit:{
+        fontSize:20,
+        alignSelf:'center'
+      }
 
 });
 
