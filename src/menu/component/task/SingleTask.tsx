@@ -26,7 +26,7 @@ const SingleTask: React.FC<Props> = ({
                 <Text style={{ marginLeft: 10,color:'grey' }}>{'Edit'}</Text>
             </TouchableOpacity>
           </View>
-        <ModalPage modalVisible={visible}  setModalVisible={(value)=>{setVisible(value)}}/>
+        <ModalPage modalVisible={visible}  setModalVisible={(value)=>{setVisible(value)}}  title={title} status={status} />
       </Fragment>
 
     );
