@@ -4,7 +4,7 @@ import counterReducer from '../features/taskSlice'
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    tasks: counterReducer,
   }
 })
 

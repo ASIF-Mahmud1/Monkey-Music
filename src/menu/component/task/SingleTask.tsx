@@ -2,18 +2,20 @@ import React,{Fragment,useState} from 'react';
 import { Button, StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
 import { FontAwesome ,Entypo } from '@expo/vector-icons';
 import ModalPage from '../../helper/component/Modal';
+import { useAppSelector, useAppDispatch } from '../../app/hooks'
+import { addTasks} from '../../features/taskSlice'
 export type Props = {
 
     title?: string;
     status?:string
 };
 
-const SingleTask: React.FC<Props> = ({
-    title = "",
-    status=""
-
-}) => {
+const SingleTask: React.FC<Props> = ({title = "", status=""}) => {
     const [visible, setVisible]=useState(false)
+    const count = useAppSelector(state => state.tasks)
+    const dispatch = useAppDispatch()
+    console.log("count is ",count.tasks);
+    
     return (
       <Fragment>
           <View style={styles.container}>
@@ -21,7 +23,7 @@ const SingleTask: React.FC<Props> = ({
                 <Text style={[styles.text]}>{title}  </Text>
                 <Text style={[styles.status]}>{status}  </Text>
             </View>    
-            <TouchableOpacity style={styles.edit} onPress={()=>{ setVisible((state)=> !state  ) }} >
+            <TouchableOpacity style={styles.edit} onPress={()=>{ setVisible((state)=> !state); dispatch(addTasks({status,title, id:Date.now()})) }} >
                 <Entypo style={{ marginLeft: 10 }} name="sound-mix" size={24} color="black" />
                 <Text style={{ marginLeft: 10,color:'grey' }}>{'Edit'}</Text>
             </TouchableOpacity>
