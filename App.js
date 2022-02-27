@@ -2,7 +2,6 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import Home from './src/menu/container/Home';
 import User from './src/menu/container/User'
-import Counter from './src/menu/container/Counter'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { NavigationContainer } from '@react-navigation/native';
@@ -14,7 +13,7 @@ export default function Authorised(){
     return(
       <NavigationContainer>
           <Stack.Navigator>
-              <Stack.Screen name='Counter' component={Counter}/>
+              <Stack.Screen name='Home' component={Home}/>
               <Stack.Screen name='User' component={User} /> 
           </Stack.Navigator>
         </NavigationContainer>
