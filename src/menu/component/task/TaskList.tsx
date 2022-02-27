@@ -5,6 +5,7 @@ import SingleTask from './SingleTask';
 type Task = {
     title: string
     status: string
+    id:number
   }
 export type Props = {
 
@@ -22,7 +23,7 @@ const TaskList: React.FC<Props> = ({
             <ScrollView style={{ marginVertical:20 }}>
                 {
                     taskList.map((item) => {
-                        return <SingleTask title={item.title} status={item.status} />
+                        return <SingleTask title={item.title} status={item.status} id={item.id} />
                     })
                 }
             </ScrollView>

@@ -31,10 +31,31 @@ export const counterSlice = createSlice({
 
       state.tasks =[ action.payload, ...state.tasks,] 
     },
+    updateStatus:(state, action: PayloadAction<Task>) => {
+     
+      let id= action.payload.id
+      const result= state.tasks.map((item)=>{
+        if(item.id===id)
+        {
+          return {
+            ...item, 
+            status: action.payload.status
+          }
+        }
+        else 
+        {
+          return {
+            ...item
+          }
+        }
+      })
+  
+    state.tasks=[...result as [Task]]
+    },
   }
 })
 
-export const {  addTasks } = counterSlice.actions
+export const {  addTasks, updateStatus } = counterSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectCount = (state: RootState) => state.tasks

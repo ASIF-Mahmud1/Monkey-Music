@@ -15,7 +15,7 @@ const Tasks: React.FC = () => {
   const [newTask, addNewTask]= useState<Task>({title:'',status:'',id:0})
 
   const taskList =useAppSelector(state => state.tasks).tasks
-  console.log(taskList.length);
+
   
 
   const dispatch = useAppDispatch()
