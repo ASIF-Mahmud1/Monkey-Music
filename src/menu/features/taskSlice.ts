@@ -6,7 +6,6 @@ import Tasks from '../container/Task'
 
 
 interface CounterState {
-  value: number;
   tasks: Task[],
 
 }
@@ -18,7 +17,6 @@ type Task = {
 }
 // Define the initial state using that type
 const initialState: CounterState = {
-  value: 0,
   tasks:[]
 }
 
@@ -31,7 +29,7 @@ export const counterSlice = createSlice({
 
     addTasks:(state, action: PayloadAction<Task>) => {
 
-      state.tasks =[...state.tasks, action.payload] 
+      state.tasks =[ action.payload, ...state.tasks,] 
     },
   }
 })
@@ -39,6 +37,6 @@ export const counterSlice = createSlice({
 export const {  addTasks } = counterSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
-export const selectCount = (state: RootState) => state.tasks.value
+export const selectCount = (state: RootState) => state.tasks
 
 export default counterSlice.reducer

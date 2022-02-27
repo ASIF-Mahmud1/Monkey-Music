@@ -2,42 +2,48 @@ import React,{useState} from 'react';
 import { StyleSheet, Text, View ,TextInput,NativeSyntheticEvent, TextInputChangeEventData,TouchableOpacity } from 'react-native';
 import { FontAwesome ,Entypo } from '@expo/vector-icons';
 import TaskList from '../component/task/TaskList';
+import { useAppSelector, useAppDispatch } from '../app/hooks'
+import { addTasks} from '../features/taskSlice'
 
 type Task = {
   title: string
   status: string
+  id: number
 }
 const Tasks: React.FC = () => {
  
-  const [taskList, setTasks]= useState <Task[]>([])
-  const [newTask, addNewTask]= useState<Task>({title:'',status:''})
+  const [newTask, addNewTask]= useState<Task>({title:'',status:'',id:0})
+
+  const taskList =useAppSelector(state => state.tasks).tasks
+  console.log(taskList.length);
+  
+
+  const dispatch = useAppDispatch()
 
   const onChange = (e: NativeSyntheticEvent<TextInputChangeEventData>): (void) => {
     const value = e.nativeEvent.text;
-    let singleTask: Task={title:value,status:"Open"}
+    let singleTask: Task={title:value,status:"Open",id: 0}
     addNewTask(singleTask);
   }
 
   const handleAddTask = () =>{
-    let allTasks : Task[] = [];
-     allTasks= [...taskList]
      let addTask : Task
      addTask=newTask
-     allTasks.unshift(newTask)
-     setTasks(allTasks)
-     addNewTask({title:'',status:''})
+
+     dispatch(addTasks({...newTask, id:Date.now()}))
+     addNewTask({title:'',status:'',id: Date.now()})
 
   }
  
   return (
     <View style={styles.container}>
-        <View style={{flexDirection:'row'}}>  
+          <Text>  Value </Text>
+        <View style={{flexDirection:'row'}}>         
             <TextInput placeholder='Add New Task' value={newTask.title}  onChange={onChange} style={[styles.input]} />
             <TouchableOpacity onPress={handleAddTask} >
                 <FontAwesome name="plus-circle" size={30} color="black"  />
             </TouchableOpacity>
       </View>
-  
         <TaskList taskList={taskList as [Task]} /> 
     </View>
   );
