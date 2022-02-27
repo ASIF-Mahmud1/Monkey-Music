@@ -13,10 +13,11 @@ export default function Authorised(){
     return(
       <NavigationContainer>
           <Stack.Navigator screenOptions={{
-              title: '',   headerStyle: { backgroundColor: 'black', }, }}
+              title: '',   headerStyle: { backgroundColor: 'black', } , headerTintColor: 'white'     }  }
           >
-              <Stack.Screen name='SignUp' component={SignUp}/>
               <Stack.Screen name='SignIn' component={SignIn} /> 
+              <Stack.Screen name='SignUp' component={SignUp}/>
+             
           </Stack.Navigator>
         </NavigationContainer>
     )

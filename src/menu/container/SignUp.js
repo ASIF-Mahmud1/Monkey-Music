@@ -23,7 +23,7 @@ export default function Home() {
            <Text  style={[styles.input,{borderWidth:0}]} > or sigin with</Text>
            <View style={{flexDirection:'row'}}> 
            <TouchableOpacity>
-               <Entypo name="facebook-with-circle" size={42} color="#3b5998" style={[styles.socialFB]} />
+               <Entypo name="facebook-with-circle" size={40} color="#3b5998" style={[styles.socialFB]} />
            </TouchableOpacity>
            <TouchableOpacity>
                  <FontAwesome name="google" size={25} color="white"  style={[styles.socialGoogle]}/>
