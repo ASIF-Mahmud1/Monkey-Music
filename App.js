@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import Home from './src/menu/container/Home';
-import User from './src/menu/container/User'
+import SignUp from './src/menu/container/SignUp';
+import SignIn from './src/menu/container/SignIn'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { NavigationContainer } from '@react-navigation/native';
@@ -15,8 +15,8 @@ export default function Authorised(){
           <Stack.Navigator screenOptions={{
               title: '',   headerStyle: { backgroundColor: 'black', }, }}
           >
-              <Stack.Screen name='Home' component={Home}/>
-              <Stack.Screen name='User' component={User} /> 
+              <Stack.Screen name='SignUp' component={SignUp}/>
+              <Stack.Screen name='SignIn' component={SignIn} /> 
           </Stack.Navigator>
         </NavigationContainer>
     )
