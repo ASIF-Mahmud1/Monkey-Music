@@ -1,8 +1,41 @@
+import React,{ useState  } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View , TextInput,TouchableOpacity } from 'react-native';
 
 import { FontAwesome ,Entypo } from '@expo/vector-icons';
+import firebase from '../../../database/firebase';
 export default function Home() {
+
+  const [state,setState]= useState({
+    email:'',
+    password:'',
+    confirmPassword:''
+  })
+
+  const handleChannge=(key,value)=>{
+   
+     setState({...state, [key]:value})
+     console.log(value);
+  }
+const  registerUser = () => {
+  
+  console.log(state.email);
+    if(state.email === '' ||  state.password === '') {
+      Alert.alert('Enter details to signup!')
+    } else {
+ 
+      firebase
+      .auth()
+      .createUserWithEmailAndPassword(state.email, state.password)
+      .then((res) => {
+        
+        console.log('User registered successfully!',res)
+    
+       // this.props.navigation.navigate('Login')
+      })
+      .catch(error =>{alert("Error happened in Firebase",error)})      
+    }
+  }
   return (
     <View style={styles.container}>
       <View>
@@ -11,11 +44,11 @@ export default function Home() {
       </View>
     
       <View style={{ paddingTop:60}  }> 
-          <TextInput placeholder='User Name / Email ID' placeholderTextColor="white"  style={styles.input} />
-          <TextInput placeholder='Password' placeholderTextColor="white"  style={styles.input}  />
-          <TextInput placeholder='Confirm Password'  placeholderTextColor="white"  style={styles.input}  />
+          <TextInput placeholder='User Name / Email ID' placeholderTextColor="white"  style={styles.input} value= {state.email} onChangeText={(value)=> handleChannge('email',value)}/>
+          <TextInput placeholder='Password' placeholderTextColor="white"  style={styles.input} value= {state.password} onChangeText={(value)=>   handleChannge('password',value)} />
+          <TextInput placeholder='Confirm Password'  placeholderTextColor="white"  style={styles.input}  value= {state.confirmPassword} onChangeText={(value)=>  handleChannge('confirmPassword',value)} />
       </View>
-      <TouchableOpacity  style={[styles.continue]}>
+      <TouchableOpacity  style={[styles.continue]} onPress={registerUser}>
          <Text style={[styles.btnText]} >   Continue </Text>  
       </TouchableOpacity>     
       <View style={{alignItems:'center'}}>
