@@ -1,9 +1,48 @@
+import React,{ useState  } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View , TextInput,TouchableOpacity ,Image} from 'react-native';
-import { logo } from '../helper/helper';
 import { FontAwesome ,Entypo } from '@expo/vector-icons';
+import { logo } from '../helper/helper';
+import {signIn} from "../api/user-api"
+import { Loader,showToast } from '../helper/component/Indicator';
+
 export default function SignIn({navigation}) {
   const imageUrl= logo
+
+  const [state,setState]= useState({
+    email:'',
+    password:'',
+  })
+  const [loading,setLoading]= useState(false)
+
+  const handleChannge=(key,value)=>{
+   
+    setState({...state, [key]:value})
+ 
+ }
+
+  const handleContinue = async () => {
+
+    if (state.email === '' || state.password === '') {
+      showToast('Enter details to sigin!')
+
+    } else {
+      setLoading(true)
+      const response = await signIn(state)
+      if (!response.error) {
+
+        showToast("Signed in Succesfully!")
+        setLoading(false)
+      }
+      else {
+
+        showToast(response.error.code)
+        setLoading(false)
+      }
+    }
+
+  }
+
   const handleNavigation=()=>{
     navigation.navigate("SignUp")
   }
@@ -16,10 +55,10 @@ export default function SignIn({navigation}) {
 
       <View style={{ paddingTop:60}  }> 
           <Image source={{ uri: imageUrl }}  style={{height:200,width:200, alignSelf:'center' }}/>
-          <TextInput placeholder='User Name or Email ' placeholderTextColor="white"  style={styles.input} />
-          <TextInput  secureTextEntry={true} placeholder='Password' placeholderTextColor="white"  style={styles.input}  />
+          <TextInput placeholder='User Name or Email ' placeholderTextColor="white"  style={styles.input} value= {state.email} onChangeText={(value)=> handleChannge('email',value)} />
+          <TextInput  secureTextEntry={true} placeholder='Password' placeholderTextColor="white"  style={styles.input}  value= {state.password} onChangeText={(value)=>   handleChannge('password',value)} />
       </View>
-      <TouchableOpacity  style={[styles.continue]}>
+      <TouchableOpacity  style={[styles.continue]} onPress={handleContinue}>
          <Text style={[styles.btnText]} >   Continue </Text>  
       </TouchableOpacity>     
       <View style={{alignItems:'center'}}>
@@ -32,7 +71,7 @@ export default function SignIn({navigation}) {
         </View>
                
       </View> 
-
+      <Loader loading={loading}  />
     </View>
   );
 }

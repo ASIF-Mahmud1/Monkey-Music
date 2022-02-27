@@ -24,6 +24,26 @@ const signUp = async ({ email, password }) => {
 
 }
 
+const signIn = async ({ email, password }) => {
+    try {
+        const response = await firebase.auth().signInWithEmailAndPassword(email, password)
+        const token = await response.user.getIdToken(); // getIdToken is a method of user
+        if (!response.error) {
+            return {
+                message: 'User Successfully Added!',
+                token: token
+            }
+        }
+
+    } catch (error) {
+        return {
+            error: error,
+            message: 'Something went wrong, Please try again later'
+        }
+    }
+}
+
 export {
-    signUp
+    signUp,
+    signIn
 }

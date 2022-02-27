@@ -1,6 +1,6 @@
 import React,{ useState  } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View , TextInput,TouchableOpacity ,Alert} from 'react-native';
+import { StyleSheet, Text, View , TextInput,TouchableOpacity } from 'react-native';
 import { FontAwesome ,Entypo } from '@expo/vector-icons';
 import {signUp} from "../api/user-api"
 import { Loader,showToast } from '../helper/component/Indicator';
@@ -22,7 +22,9 @@ export default function Home() {
 
    
     if (state.email === '' || state.password === '') {
-      Alert.alert('Enter details to signup!')
+     
+      showToast('Enter details to signup!')
+
     } else {
        setLoading(true)
       const response = await signUp(state)
@@ -37,6 +39,10 @@ export default function Home() {
         setLoading(false)
       }
     }
+  }
+
+  const handleSocialSignIn=()=>{
+    showToast("Stay tuned for the feature!")
   }
   return (
     <View style={styles.container}>
@@ -58,10 +64,10 @@ export default function Home() {
 
            <Text  style={[styles.input,{borderWidth:0}]} > or sigin with</Text>
            <View style={{flexDirection:'row'}}> 
-           <TouchableOpacity>
+           <TouchableOpacity onPress={handleSocialSignIn} > 
                <Entypo name="facebook-with-circle" size={40} color="#3b5998" style={[styles.socialFB]} />
            </TouchableOpacity>
-           <TouchableOpacity>
+           <TouchableOpacity onPress={handleSocialSignIn}>
                  <FontAwesome name="google" size={25} color="white"  style={[styles.socialGoogle]}/>
              </TouchableOpacity>
 
