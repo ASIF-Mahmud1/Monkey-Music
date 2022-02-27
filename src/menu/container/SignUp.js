@@ -1,9 +1,8 @@
 import React,{ useState  } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View , TextInput,TouchableOpacity } from 'react-native';
-
+import { StyleSheet, Text, View , TextInput,TouchableOpacity ,Alert} from 'react-native';
 import { FontAwesome ,Entypo } from '@expo/vector-icons';
-import firebase from '../../../database/firebase';
+import {signUp} from "../api/user-api"
 export default function Home() {
 
   const [state,setState]= useState({
@@ -17,23 +16,20 @@ export default function Home() {
      setState({...state, [key]:value})
      console.log(value);
   }
-const  registerUser = () => {
-  
-  console.log(state.email);
-    if(state.email === '' ||  state.password === '') {
+  const registerUser = async () => {
+
+    console.log(state.email);
+    if (state.email === '' || state.password === '') {
       Alert.alert('Enter details to signup!')
     } else {
- 
-      firebase
-      .auth()
-      .createUserWithEmailAndPassword(state.email, state.password)
-      .then((res) => {
-        
-        console.log('User registered successfully!',res)
-    
-       // this.props.navigation.navigate('Login')
-      })
-      .catch(error =>{alert("Error happened in Firebase",error)})      
+
+      const response = await signUp(state)
+      if (!response.error) {
+        console.log(response);
+      }
+      else {
+        console.log("ELSE ", response);
+      }
     }
   }
   return (
