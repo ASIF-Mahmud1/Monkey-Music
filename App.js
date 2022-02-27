@@ -12,7 +12,9 @@ const Stack = createNativeStackNavigator();
 export default function Authorised(){
     return(
       <NavigationContainer>
-          <Stack.Navigator>
+          <Stack.Navigator screenOptions={{
+              title: '',   headerStyle: { backgroundColor: 'black', }, }}
+          >
               <Stack.Screen name='Home' component={Home}/>
               <Stack.Screen name='User' component={User} /> 
           </Stack.Navigator>
