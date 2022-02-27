@@ -1,8 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View , TextInput,TouchableOpacity } from 'react-native';
-
+import { StyleSheet, Text, View , TextInput,TouchableOpacity ,Image} from 'react-native';
+import { logo } from '../helper/helper';
 import { FontAwesome ,Entypo } from '@expo/vector-icons';
 export default function SignIn({navigation}) {
+  const imageUrl= logo
   const handleNavigation=()=>{
     navigation.navigate("SignUp")
   }
@@ -12,8 +13,9 @@ export default function SignIn({navigation}) {
           <Text style={styles.title}>Login</Text>
           <Text style={styles.subTitle}>Fill the details {"&"} login to your account</Text>
       </View>
-    
+
       <View style={{ paddingTop:60}  }> 
+          <Image source={{ uri: imageUrl }}  style={{height:200,width:200, alignSelf:'center' }}/>
           <TextInput placeholder='User Name or Email ' placeholderTextColor="white"  style={styles.input} />
           <TextInput  secureTextEntry={true} placeholder='Password' placeholderTextColor="white"  style={styles.input}  />
       </View>
@@ -23,7 +25,7 @@ export default function SignIn({navigation}) {
       <View style={{alignItems:'center'}}>
 
         <View>
-          <Text style={styles.signupText}>Dont have an account?</Text>
+          <Text style={styles.signupText}>Don't have an account?</Text>
           <TouchableOpacity style={[styles.signUp]} onPress={handleNavigation}>
             <Text style={[styles.signupText]} >   Sign Up </Text>
           </TouchableOpacity>
