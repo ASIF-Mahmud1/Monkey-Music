@@ -3,6 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View , TextInput,TouchableOpacity ,Alert} from 'react-native';
 import { FontAwesome ,Entypo } from '@expo/vector-icons';
 import {signUp} from "../api/user-api"
+import { Loader,showToast } from '../helper/component/Indicator';
 export default function Home() {
 
   const [state,setState]= useState({
@@ -11,34 +12,40 @@ export default function Home() {
     confirmPassword:''
   })
 
+  const [loading,setLoading]= useState(false)
   const handleChannge=(key,value)=>{
    
      setState({...state, [key]:value})
-     console.log(value);
+  
   }
   const registerUser = async () => {
 
-    console.log(state.email);
+   
     if (state.email === '' || state.password === '') {
       Alert.alert('Enter details to signup!')
     } else {
-
+       setLoading(true)
       const response = await signUp(state)
       if (!response.error) {
-        console.log(response);
+       
+        showToast(response.message)
+        setLoading(false)
       }
       else {
-        console.log("ELSE ", response);
+        
+        showToast(response.error.code)
+        setLoading(false)
       }
     }
   }
   return (
     <View style={styles.container}>
+
       <View>
           <Text style={styles.title}>Create{"\n"}an account </Text>
           <Text style={styles.subTitle}>Fill the details {"&"} create your account</Text>
       </View>
-    
+     
       <View style={{ paddingTop:60}  }> 
           <TextInput placeholder='User Name / Email ID' placeholderTextColor="white"  style={styles.input} value= {state.email} onChangeText={(value)=> handleChannge('email',value)}/>
           <TextInput placeholder='Password' placeholderTextColor="white"  style={styles.input} value= {state.password} onChangeText={(value)=>   handleChannge('password',value)} />
@@ -59,9 +66,9 @@ export default function Home() {
              </TouchableOpacity>
 
            </View>
-               
+         
+           <Loader loading={loading}  />
       </View> 
-
     </View>
   );
 }

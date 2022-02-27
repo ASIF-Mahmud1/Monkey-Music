@@ -16,7 +16,6 @@ const signUp = async ({ email, password }) => {
             })
         }
     } catch (error) {
-        console.log("here catch ");
         return {
             error: error,
             message: 'Something went wrong, Please try again later'
