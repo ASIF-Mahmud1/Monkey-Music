@@ -10,6 +10,6 @@ npm-debug.*
 *.orig.*
 web-build/
 notes.txt
-
+secret.js
 # macOS
 .DS_Store
