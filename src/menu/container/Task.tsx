@@ -4,7 +4,7 @@ import { FontAwesome ,Entypo } from '@expo/vector-icons';
 import TaskList from '../component/task/TaskList';
 import { useAppSelector, useAppDispatch } from '../app/hooks'
 import { addTasks} from '../features/taskSlice'
-
+import {storeData, getData} from '../helper/helper'
 type Task = {
   title: string
   status: string
@@ -16,6 +16,8 @@ const Tasks: React.FC = () => {
 
   const taskList =useAppSelector(state => state.tasks).tasks
 
+  const user= useAppSelector(state => state.user).user
+  console.log('Whach yo here ',user);
   
 
   const dispatch = useAppDispatch()

@@ -5,7 +5,7 @@ import { FontAwesome ,Entypo } from '@expo/vector-icons';
 import {signUp} from "../api/user-api"
 import { Loader,showToast } from '../helper/component/Indicator';
 import { useSelector, useDispatch } from 'react-redux'
-import { signUpReducer} from '../features/user.Slice'
+import { signInReducer} from '../features/user.Slice'
 import { storeData } from '../helper/helper';
 export default function SignUp({navigation}) {
    
@@ -44,7 +44,7 @@ export default function SignUp({navigation}) {
           email:state.email,
           token: response.token
         }
-        dispatch(signUpReducer(user))
+        dispatch(signInReducer(user))
         storeData('user', user)
       }
       else {

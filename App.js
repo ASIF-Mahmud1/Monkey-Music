@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import SignUp from './src/menu/container/SignUp';
-import User from './src/menu/container/User'
+import SignIn from './src/menu/container/SignIn';
 import Task from './src/menu/container/Task'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {Provider} from 'react-redux'
@@ -16,6 +16,7 @@ export default function Authorised(){
       <Provider store={store}>
           <NavigationContainer>
               <Stack.Navigator>
+                  <Stack.Screen name='SignIn' component={SignIn}/>
                   <Stack.Screen name='Task' component={Task}/>
                   <Stack.Screen name='SignUp' component={SignUp} /> 
               </Stack.Navigator>

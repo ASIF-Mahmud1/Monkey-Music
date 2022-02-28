@@ -5,6 +5,9 @@ import { FontAwesome ,Entypo } from '@expo/vector-icons';
 import { logo } from '../helper/helper';
 import {signIn} from "../api/user-api"
 import { Loader,showToast } from '../helper/component/Indicator';
+import { signInReducer} from '../features/user.Slice'
+import { useSelector, useDispatch } from 'react-redux'
+
 
 export default function SignIn({navigation}) {
   const imageUrl= logo
@@ -14,6 +17,8 @@ export default function SignIn({navigation}) {
     password:'',
   })
   const [loading,setLoading]= useState(false)
+
+  const dispatch = useDispatch()
 
   const handleChannge=(key,value)=>{
    
@@ -32,7 +37,13 @@ export default function SignIn({navigation}) {
       if (!response.error) {
 
         showToast("Signed in Succesfully!")
+        let user={
+          email: state.email,
+          token: response.token
+        }
+        dispatch(signInReducer(user))
         setLoading(false)
+        handleNavigation("Task")
       }
       else {
 
@@ -43,8 +54,8 @@ export default function SignIn({navigation}) {
 
   }
 
-  const handleNavigation=()=>{
-    navigation.navigate("SignUp")
+  const handleNavigation=(screen)=>{
+    navigation.navigate(screen)
   }
   return (
     <View style={styles.container}>
@@ -65,7 +76,7 @@ export default function SignIn({navigation}) {
 
         <View>
           <Text style={styles.signupText}>Don't have an account?</Text>
-          <TouchableOpacity style={[styles.signUp]} onPress={handleNavigation}>
+          <TouchableOpacity style={[styles.signUp]} onPress={()=>handleNavigation("SignUp")}>
             <Text style={[styles.signupText]} >   Sign Up </Text>
           </TouchableOpacity>
         </View>
