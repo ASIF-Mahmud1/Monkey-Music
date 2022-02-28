@@ -2,7 +2,7 @@
 # Events
 
 ### Features
--  User can  sign-up with Firebase, 
+-  User can  sign-up with Firebase
 - After succesful signup, the user is redirected to the homepage
 
 <br>
@@ -40,7 +40,7 @@ A video recording of the application can be seen, by clicking on the link above.
 
 # Keywords
 
-React , React Native , React Navigation , Stack Navigator , JavaScript ,Typescript,  Redux , mobile app development
+React , React Native , React Navigation , Stack Navigator , JavaScript ,  Redux , mobile app development
 
 # Notes
 
