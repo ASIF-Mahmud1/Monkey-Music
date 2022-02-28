@@ -6,7 +6,7 @@
 -   Tasks can be marked as open, working on or completed.
 -   Tasks can only be viewed and managed by the owner.
 <br>
-## [Demo Video Link](https://drive.google.com/file/d/17rWBFdSL64wp0CehvKbM7AciurkEfvEK/view?usp=sharing)
+## [Demo Video Link](https://drive.google.com/file/d/17sb4oUyhqlONCi4e74o-hBXgftlxyD-N/view?usp=sharing)
 
 A video recording of the application can be seen, by clicking on the link above.
 <br>
@@ -16,9 +16,9 @@ A video recording of the application can be seen, by clicking on the link above.
 
 2\. cd Monkey-Music
 
-3\. create  the branch ***Task-3*** 
+3\. create  the branch ***Task-2*** 
 
-4\. pull the branch ***Task-3*** 
+4\. pull the branch ***Task-2*** 
 
 5\. npm install
 
@@ -28,7 +28,7 @@ A video recording of the application can be seen, by clicking on the link above.
 
 
 
-## [Expo App Link](https://expo.dev/@asifmahmud1/Task-Tracker)
+## [Expo App Link](https://expo.dev/@asifmahmud1/Event)
 
  You can run the Expo App , by clicking on the link above.
 
