@@ -54,9 +54,9 @@ export default function SignIn({navigation}) {
           if(value!= null)
           {
              let result= value.filter((item)=> item.email== state.email ) 
-             if(result)
+             if(result.length>0)
              {
-              console.log("inside is value ",result);
+              console.log("inside is value ",result, result[0]);
                 dispatchApp(loadTasks(result[0].taskList))
              }
              else 
