@@ -6,6 +6,7 @@
 -   Tasks can be marked as open, working on or completed.
 -   Tasks can only be viewed and managed by the owner.
 <br>
+
 ## [Demo Video Link](https://drive.google.com/file/d/17rWBFdSL64wp0CehvKbM7AciurkEfvEK/view?usp=sharing)
 
 A video recording of the application can be seen, by clicking on the link above.
