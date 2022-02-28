@@ -4,8 +4,11 @@ import { StyleSheet, Text, View , TextInput,TouchableOpacity } from 'react-nativ
 import { FontAwesome ,Entypo } from '@expo/vector-icons';
 import {signUp} from "../api/user-api"
 import { Loader,showToast } from '../helper/component/Indicator';
+import { useSelector, useDispatch } from 'react-redux'
+import { signUpReducer} from '../features/user.slice'
+import { storeData } from '../helper/helper';
 export default function SignUp({navigation}) {
-
+   
   const [state,setState]= useState({
     email:'',
     password:'',
@@ -13,6 +16,11 @@ export default function SignUp({navigation}) {
   })
 
   const [loading,setLoading]= useState(false)
+
+  const count = useSelector(state => state.counter.user)
+  const dispatch = useDispatch()
+
+
   const handleChannge=(key,value)=>{
    
      setState({...state, [key]:value})
@@ -32,7 +40,12 @@ export default function SignUp({navigation}) {
        
         showToast(response.message)
         setLoading(false)
-        handleNavigation()
+        let user= {
+          email:state.email,
+          token: response.token
+        }
+        dispatch(signUpReducer(user))
+        storeData('user', user)
       }
       else {
         

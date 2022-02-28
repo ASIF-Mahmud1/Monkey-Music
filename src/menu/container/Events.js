@@ -2,7 +2,7 @@ import React, { useState,useEffect } from 'react';
 import { StyleSheet, Text, View,ScrollView } from 'react-native';
 import Item from '../component/Item'
 import { itemList } from '../../../assets/data/item';
-export default function Featured() {
+export default function Events() {
 
   const featured= itemList.filter((ele)=> ele.featured)
   const handleAddEvent=(id)=>{   }
