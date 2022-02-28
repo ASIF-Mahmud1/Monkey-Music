@@ -67,11 +67,11 @@ const Tasks: React.FC = () => {
  
   return (
     <View style={styles.container}>
-          <Text>  Value </Text>
+        
         <View style={{flexDirection:'row'}}>         
-            <TextInput placeholder='Add New Task' value={newTask.title}  onChange={onChange} style={[styles.input]} />
+            <TextInput placeholder='Add New Task' value={newTask.title}  onChange={onChange} style={[styles.input]} placeholderTextColor="white" />
             <TouchableOpacity onPress={handleAddTask} >
-                <FontAwesome name="plus-circle" size={30} color="black"  />
+                <FontAwesome name="plus-circle" size={30} color="white"  />
             </TouchableOpacity>
       </View>
         <TaskList taskList={taskList as [Task]} /> 
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop:60,
     paddingHorizontal:40,
-    backgroundColor:'white'
+    backgroundColor:'black'
   },
   greeting: {
     fontSize: 20,
@@ -100,6 +100,7 @@ const styles = StyleSheet.create({
     fontSize:20,
     flexGrow:1,
     marginRight:10,
+    color:'white'
 
 
   },

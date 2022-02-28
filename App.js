@@ -15,7 +15,8 @@ export default function Authorised(){
     return(
       <Provider store={store}>
           <NavigationContainer>
-              <Stack.Navigator>
+              <Stack.Navigator  screenOptions={{
+                 headerStyle: { backgroundColor: 'black', } , headerTintColor: 'white'     }  }>
                   <Stack.Screen name='SignIn' component={SignIn}/>
                   <Stack.Screen name='Task' component={Task}/>
                   <Stack.Screen name='SignUp' component={SignUp} /> 
