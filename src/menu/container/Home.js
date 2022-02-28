@@ -1,8 +1,11 @@
+import React,{useState} from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View , TextInput,TouchableOpacity } from 'react-native';
 
 import { FontAwesome ,Entypo } from '@expo/vector-icons';
+import CustomAlertComponent from './CustomAlert';
 export default function Home() {
+  const [showAlert,setAlert]= useState(false)
   return (
     <View style={styles.container}>
       <View>
@@ -10,28 +13,16 @@ export default function Home() {
           <Text style={styles.subTitle}>Fill the details {"&"} create your account</Text>
       </View>
     
-      <View style={{ paddingTop:60}  }> 
-          <TextInput placeholder='User Name / Email ID' placeholderTextColor="white"  style={styles.input} />
-          <TextInput placeholder='Password' placeholderTextColor="white"  style={styles.input}  />
-          <TextInput placeholder='Confirm Password'  placeholderTextColor="white"  style={styles.input}  />
-      </View>
+   
       <TouchableOpacity  style={[styles.continue]}>
-         <Text style={[styles.btnText]} >   Continue </Text>  
+         <Text style={[styles.btnText]} onPress={()=>setAlert(true)}>   Continue </Text>  
       </TouchableOpacity>     
-      <View style={{alignItems:'center'}}>
-
-           <Text  style={[styles.input,{borderWidth:0}]} > or sigin with</Text>
-           <View style={{flexDirection:'row'}}> 
-           <TouchableOpacity>
-               <Entypo name="facebook-with-circle" size={42} color="#3b5998" style={[styles.socialFB]} />
-           </TouchableOpacity>
-           <TouchableOpacity>
-                 <FontAwesome name="google" size={25} color="white"  style={[styles.socialGoogle]}/>
-             </TouchableOpacity>
-
-           </View>
-               
-      </View> 
+      <CustomAlertComponent 
+            displayAlert ={showAlert}  displayPositiveButton={true} displayNegativeButton={true} 
+            negativeButtonText={"Cancel"}  positiveButtonText ={"Delete"} 
+            onPressNegativeButton={()=>{setAlert(false);}} onPressPositiveButton ={()=>{setAlert(false); }}
+            alertTitleText={'Delete Medicine'}  alertMessageText={'Do you want to delete this medicine ' }
+          />
 
     </View>
   );
