@@ -6,7 +6,10 @@ import {signUp} from "../api/user-api"
 import { Loader,showToast } from '../helper/component/Indicator';
 import { useSelector, useDispatch } from 'react-redux'
 import { signInReducer} from '../features/user.Slice'
-import { storeData } from '../helper/helper';
+import { useAppSelector, useAppDispatch } from '../app/hooks'
+import { addTasks  ,loadTasks} from '../features/taskSlice'
+import {storeData, getData} from '../helper/helper'
+
 export default function SignUp({navigation}) {
    
   const [state,setState]= useState({
@@ -20,6 +23,7 @@ export default function SignUp({navigation}) {
   const count = useSelector(state => state.user.user)
   const dispatch = useDispatch()
 
+  const dispatchApp = useAppDispatch()
 
   const handleChannge=(key,value)=>{
    
@@ -45,7 +49,27 @@ export default function SignUp({navigation}) {
           token: response.token
         }
         dispatch(signInReducer(user))
-        storeData('user', user)
+        storeData('user', user) // may be not needed
+
+        getData('userTask', (value) => {
+
+          if (value != null) {
+            let newValue = {
+              email: state.email,
+              taskList: []
+            }
+
+            let result = value
+            result.push(newValue)
+            dispatchApp(loadTasks(newValue.taskList))
+          }
+          else {
+
+            storeData('userTask', [])
+          }
+
+        })
+        handleNavigation("Task")
       }
       else {
         
@@ -58,9 +82,10 @@ export default function SignUp({navigation}) {
   const handleSocialSignIn=()=>{
     showToast("Stay tuned for the feature!")
   }
-  const handleNavigation=()=>{
-     navigation.navigate("Events")
+  const handleNavigation=(screen)=>{
+    navigation.navigate(screen)
   }
+
   return (
     <View style={styles.container}>
 

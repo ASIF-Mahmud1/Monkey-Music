@@ -40,7 +40,7 @@ const Tasks: React.FC = () => {
 
      let newValue= {
       email: user.email,
-      taskList:[ ...taskList,  {...newTask, id:Date.now()}]
+      taskList:[ {...newTask, id:Date.now()}, ...taskList ]
     } as User
 
      getData('userTask',(value: [User] )=>{
@@ -48,11 +48,13 @@ const Tasks: React.FC = () => {
        {
           let result= value.filter((item)=> item.email!== user.email ) 
           result.push(newValue)
+          console.log("Before store IF",result);
+          
           storeData('userTask',result)
        }
        else 
        {
-       
+        console.log("Before store else",[newValue]);
          storeData('userTask',[newValue])
        }
       dispatch(addTasks({...newTask, id:Date.now()}))
@@ -61,6 +63,7 @@ const Tasks: React.FC = () => {
      addNewTask({title:'',status:'',id: Date.now()})
 
   }
+  
  
   return (
     <View style={styles.container}>
