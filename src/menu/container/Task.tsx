@@ -10,14 +10,20 @@ type Task = {
   status: string
   id: number
 }
+type User={
+  email: string
+  taskList: [Task]
+}
 const Tasks: React.FC = () => {
  
   const [newTask, addNewTask]= useState<Task>({title:'',status:'',id:0})
 
   const taskList =useAppSelector(state => state.tasks).tasks
+  console.log("Mah task list ",taskList);
+  
 
-  const user= useAppSelector(state => state.user).user
-  console.log('Whach yo here ',user);
+  const user= useAppSelector(state => state.user).user as unknown as User
+ 
   
 
   const dispatch = useAppDispatch()
@@ -32,7 +38,26 @@ const Tasks: React.FC = () => {
      let addTask : Task
      addTask=newTask
 
-     dispatch(addTasks({...newTask, id:Date.now()}))
+     let newValue= {
+      email: user.email,
+      taskList:[ ...taskList,  {...newTask, id:Date.now()}]
+    } as User
+
+     getData('userTask',(value: [User] )=>{
+       if(value!= null)
+       {
+          let result= value.filter((item)=> item.email!== user.email ) 
+          result.push(newValue)
+          storeData('userTask',result)
+       }
+       else 
+       {
+       
+         storeData('userTask',[newValue])
+       }
+      dispatch(addTasks({...newTask, id:Date.now()}))
+     })
+
      addNewTask({title:'',status:'',id: Date.now()})
 
   }

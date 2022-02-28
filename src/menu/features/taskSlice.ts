@@ -31,6 +31,12 @@ export const counterSlice = createSlice({
 
       state.tasks =[ action.payload, ...state.tasks,] 
     },
+
+    loadTasks:(state, action: PayloadAction<[Task]>) => {
+
+      state.tasks = action.payload
+    },
+
     updateStatus:(state, action: PayloadAction<Task>) => {
      
       let id= action.payload.id
@@ -55,7 +61,7 @@ export const counterSlice = createSlice({
   }
 })
 
-export const {  addTasks, updateStatus } = counterSlice.actions
+export const {  addTasks, updateStatus, loadTasks } = counterSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectCount = (state: RootState) => state.tasks

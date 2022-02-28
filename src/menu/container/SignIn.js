@@ -8,17 +8,23 @@ import { Loader,showToast } from '../helper/component/Indicator';
 import { signInReducer} from '../features/user.Slice'
 import { useSelector, useDispatch } from 'react-redux'
 
+import { useAppSelector, useAppDispatch } from '../app/hooks'
+import { addTasks  ,loadTasks} from '../features/taskSlice'
+import {storeData, getData} from '../helper/helper'
 
 export default function SignIn({navigation}) {
   const imageUrl= logo
 
   const [state,setState]= useState({
-    email:'',
-    password:'',
+    email:'asif@gmail.com',
+    password:'123456',
   })
   const [loading,setLoading]= useState(false)
 
   const dispatch = useDispatch()
+
+  const dispatchApp = useAppDispatch()
+
 
   const handleChannge=(key,value)=>{
    
@@ -42,8 +48,32 @@ export default function SignIn({navigation}) {
           token: response.token
         }
         dispatch(signInReducer(user))
+
+        getData('userTask',(value )=>{
+       
+          if(value!= null)
+          {
+             let result= value.filter((item)=> item.email== state.email ) 
+             if(result)
+             {
+              console.log("inside is value ",result);
+                dispatchApp(loadTasks(result[0].taskList))
+             }
+             else 
+             {
+              dispatchApp(loadTasks([]))
+             }
+             
+          }
+          else 
+          {
+          
+            storeData('userTask',[])
+          }
+         
+        })
         setLoading(false)
-        handleNavigation("Task")
+         handleNavigation("Task")
       }
       else {
 
