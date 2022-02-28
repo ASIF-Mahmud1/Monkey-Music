@@ -4,7 +4,7 @@ import { StyleSheet, Text, View , TextInput,TouchableOpacity } from 'react-nativ
 import { FontAwesome ,Entypo } from '@expo/vector-icons';
 import {signUp} from "../api/user-api"
 import { Loader,showToast } from '../helper/component/Indicator';
-export default function Home() {
+export default function SignUp({navigation}) {
 
   const [state,setState]= useState({
     email:'',
@@ -32,6 +32,7 @@ export default function Home() {
        
         showToast(response.message)
         setLoading(false)
+        handleNavigation()
       }
       else {
         
@@ -43,6 +44,9 @@ export default function Home() {
 
   const handleSocialSignIn=()=>{
     showToast("Stay tuned for the feature!")
+  }
+  const handleNavigation=()=>{
+     navigation.navigate("Events")
   }
   return (
     <View style={styles.container}>
