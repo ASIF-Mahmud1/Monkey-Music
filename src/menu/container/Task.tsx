@@ -50,12 +50,12 @@ const Tasks: React.FC = () => {
           result.push(newValue)
           console.log("Before store IF",result);
           
-          storeData('userTask',result)
+          storeData('userTask',result,()=>{})
        }
        else 
        {
         console.log("Before store else",[newValue]);
-         storeData('userTask',[newValue])
+         storeData('userTask',[newValue],()=>{})
        }
       dispatch(addTasks({...newTask, id:Date.now()}))
      })

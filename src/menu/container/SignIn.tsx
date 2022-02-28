@@ -1,18 +1,33 @@
 import React,{ useState  } from 'react';
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View , TextInput,TouchableOpacity ,Image} from 'react-native';
-import { FontAwesome ,Entypo } from '@expo/vector-icons';
 import { logo } from '../helper/helper';
 import {signIn} from "../api/user-api"
 import { Loader,showToast } from '../helper/component/Indicator';
 import { signInReducer} from '../features/user.Slice'
-import { useSelector, useDispatch } from 'react-redux'
+import {  useDispatch } from 'react-redux'
 
-import { useAppSelector, useAppDispatch } from '../app/hooks'
-import { addTasks  ,loadTasks} from '../features/taskSlice'
+import {  useAppDispatch } from '../app/hooks'
+import {  loadTasks} from '../features/taskSlice'
 import {storeData, getData} from '../helper/helper'
 
-export default function SignIn({navigation}) {
+
+type Nav={
+  navigation: any
+ 
+}
+
+type Task = {
+  title: string
+  status: string
+  id: number
+}
+
+type User={
+  email: string
+  taskList: [Task]
+}
+
+const  SignIn: React.FC<Nav>=({navigation })=> {
   const imageUrl= logo
 
   const [state,setState]= useState({
@@ -26,7 +41,7 @@ export default function SignIn({navigation}) {
   const dispatchApp = useAppDispatch()
 
 
-  const handleChannge=(key,value)=>{
+  const handleChannge=(key:string,value:any)=>{
    
     setState({...state, [key]:value})
  
@@ -40,12 +55,12 @@ export default function SignIn({navigation}) {
     } else {
       setLoading(true)
       const response = await signIn(state)
-      if (!response.error) {
+      if (!response?.error) {
 
         showToast("Signed in Succesfully!")
         let user={
           email: state.email,
-          token: response.token
+          token: response?.token
         }
         dispatch(signInReducer(user))
 
@@ -53,7 +68,7 @@ export default function SignIn({navigation}) {
        
           if(value!= null)
           {
-             let result= value.filter((item)=> item.email== state.email ) 
+             let result= value.filter((item:User)=> item.email== state.email ) 
              if(result)
              {
               console.log("inside is value ",result);
@@ -61,14 +76,15 @@ export default function SignIn({navigation}) {
              }
              else 
              {
-              dispatchApp(loadTasks([]))
+               let emptyArr=[] as unknown as [Task]
+              dispatchApp(loadTasks(emptyArr))
              }
              
           }
           else 
           {
           
-            storeData('userTask',[])
+            storeData('userTask',[],()=>{})
           }
          
         })
@@ -77,14 +93,14 @@ export default function SignIn({navigation}) {
       }
       else {
 
-        showToast(response.error.code)
+        showToast(response?.error)
         setLoading(false)
       }
     }
 
   }
 
-  const handleNavigation=(screen)=>{
+  const handleNavigation=(screen:string)=>{
     navigation.navigate(screen)
   }
   return (
@@ -194,3 +210,5 @@ const styles = StyleSheet.create({
     fontWeight:"bold"
   }
 });
+
+export default SignIn

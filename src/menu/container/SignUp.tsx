@@ -1,16 +1,31 @@
 import React,{ useState  } from 'react';
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View , TextInput,TouchableOpacity } from 'react-native';
 import { FontAwesome ,Entypo } from '@expo/vector-icons';
 import {signUp} from "../api/user-api"
 import { Loader,showToast } from '../helper/component/Indicator';
 import { useSelector, useDispatch } from 'react-redux'
 import { signInReducer} from '../features/user.Slice'
-import { useAppSelector, useAppDispatch } from '../app/hooks'
-import { addTasks  ,loadTasks} from '../features/taskSlice'
+import {  useAppDispatch } from '../app/hooks'
+import {   loadTasks} from '../features/taskSlice'
 import {storeData, getData} from '../helper/helper'
+import { RootState } from '../app/store';
 
-export default function SignUp({navigation}) {
+type Nav={
+  navigation: any
+ 
+}
+
+type Task = {
+  title: string
+  status: string
+  id: number
+}
+
+type User={
+  email: string
+  taskList: [Task]
+}
+const SignUp: React.FC<Nav>=({navigation })=> {
    
   const [state,setState]= useState({
     email:'',
@@ -20,12 +35,12 @@ export default function SignUp({navigation}) {
 
   const [loading,setLoading]= useState(false)
 
-  const count = useSelector(state => state.user.user)
+  const count = useSelector((state:RootState) => state.user.user)
   const dispatch = useDispatch()
 
   const dispatchApp = useAppDispatch()
 
-  const handleChannge=(key,value)=>{
+  const handleChannge=(key:string,value:any)=>{
    
      setState({...state, [key]:value})
   
@@ -49,7 +64,7 @@ export default function SignUp({navigation}) {
           token: response.token
         }
         dispatch(signInReducer(user))
-        storeData('user', user) // may be not needed
+        storeData('user', user,()=>{}) // may be not needed
 
         getData('userTask', (value) => {
 
@@ -57,7 +72,7 @@ export default function SignUp({navigation}) {
             let newValue = {
               email: state.email,
               taskList: []
-            }
+            } as unknown as User
 
             let result = value
             result.push(newValue)
@@ -65,7 +80,7 @@ export default function SignUp({navigation}) {
           }
           else {
 
-            storeData('userTask', [])
+            storeData('userTask', [],()=>{})
           }
 
         })
@@ -82,7 +97,7 @@ export default function SignUp({navigation}) {
   const handleSocialSignIn=()=>{
     showToast("Stay tuned for the feature!")
   }
-  const handleNavigation=(screen)=>{
+  const handleNavigation=(screen:string)=>{
     navigation.navigate(screen)
   }
 
@@ -181,3 +196,5 @@ const styles = StyleSheet.create({
     marginBottom:12,
   }
 });
+
+export default SignUp
