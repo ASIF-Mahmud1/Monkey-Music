@@ -1,16 +1,14 @@
 import React,{useState} from 'react';
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View , TextInput,TouchableOpacity } from 'react-native';
 
-import { FontAwesome ,Entypo } from '@expo/vector-icons';
 import CustomAlertComponent from './CustomAlert';
 export default function Home() {
   const [showAlert,setAlert]= useState(false)
   return (
     <View style={styles.container}>
       <View>
-          <Text style={styles.title}>Create{"\n"}an account </Text>
-          <Text style={styles.subTitle}>Fill the details {"&"} create your account</Text>
+          <Text style={styles.title}>Book{"\n"}your seat right away! </Text>
+          <Text style={styles.subTitle}>To Confirm your seat click the button</Text>
       </View>
     
    
@@ -19,9 +17,9 @@ export default function Home() {
       </TouchableOpacity>     
       <CustomAlertComponent 
             displayAlert ={showAlert}  displayPositiveButton={true} displayNegativeButton={true} 
-            negativeButtonText={"Cancel"}  positiveButtonText ={"Delete"} 
+            negativeButtonText={"Cancel"}  positiveButtonText ={"Yes"} 
             onPressNegativeButton={()=>{setAlert(false);}} onPressPositiveButton ={()=>{setAlert(false); }}
-            alertTitleText={'Delete Medicine'}  alertMessageText={'Do you want to delete this medicine ' }
+            alertTitleText={'Book My Seat '}  alertMessageText={'Do you want to Confirm your Seat ?' }
           />
 
     </View>

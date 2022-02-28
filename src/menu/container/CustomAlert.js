@@ -47,12 +47,12 @@ export default function CustomAlertComponent(props){
 
               {
                 props.displayPositiveButton
-                &&
-                <TouchableOpacity
-                  onPress={onPositiveButtonPress}
-                  style={styles.alertMessageButtonStyle} >
-                  <Text style={styles.alertMessageButtonTextStyle}>{props.positiveButtonText}</Text>
-                </TouchableOpacity>
+                &&  <TouchableOpacity
+                onPress={onPositiveButtonPress}
+                style={styles.alertMessageButtonStyle} >
+                <Text style={styles.alertMessageButtonTextStyle}>{props.positiveButtonText}</Text>
+              </TouchableOpacity>
+               
               }
       
             </View>
@@ -141,28 +141,29 @@ const styles = StyleSheet.create({
   },
   alertMessageButtonStyle: {
     width: '45%',
-    paddingHorizontal: 6,
-    marginVertical: 4,
+    paddingHorizontal: 0,
+    marginVertical: 0,
+    borderRadius: 10,
+    backgroundColor: '#71DEA3',
+   
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical:0
+  },
+  alertCancelButtonStyle: {
+    width: '45%',
+    paddingHorizontal: 0,
+    marginVertical: 0,
     borderRadius: 10,
     backgroundColor: '#D91010',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical:15
-  },
-  alertCancelButtonStyle: {
-    width: '45%',
-    paddingHorizontal: 6,
-    marginVertical: 4,
-    borderRadius: 10,
-    backgroundColor: '#71DEA3',
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingVertical:15
+    paddingVertical:0
   },
   alertMessageButtonTextStyle: {
     fontSize: 14,
     fontWeight: 'bold',
-    color: '#FFFFFF'
+    color: 'white'
   },
 
 });
